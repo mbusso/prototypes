@@ -7,7 +7,7 @@
 // 'starter.controllers' is found in controllers.js
 angular.module('starter', ['ionic', 'starter.controllers', 'starter.services', 'ngCordova' ])
 
-.run(function($ionicPlatform) {
+.run(function($ionicPlatform, $cordovaBackgroundGeolocation) {
   $ionicPlatform.ready(function() {
     // Hide the accessory bar by default (remove this to show the accessory bar above the keyboard
     // for form inputs)
@@ -20,9 +20,24 @@ angular.module('starter', ['ionic', 'starter.controllers', 'starter.services', '
     }
 
     window.plugins.sqlDB.copy("bsas.mbtiles",function() {
-      console.log("Db copied saccessfully"); },function(error){  console.log("Error copying db: "+JSON.stringify(error)); });
+      console.log("Db copied saccessfully"); }
+      ,function(error) { 
+        console.log("Error copying db: "+JSON.stringify(error));
+    });
 
-    
+    var options = {
+    // https://github.com/christocracy/cordova-plugin-background-geolocation#config
+      distanceFilter:0,
+      stationaryRadius:0,
+      locationTimeout:1
+    };
+
+    $cordovaBackgroundGeolocation.configure(options).then(function (location) {
+      console.log(location);
+    }, function (err) {
+      console.error(err);
+    });
+
   });
 })
 
