@@ -26,7 +26,7 @@ angular.module('starter', ['ionic', 'starter.controllers', 'starter.services', '
     });
 
     var options = {
-    // https://github.com/christocracy/cordova-plugin-background-geolocation#config
+      url: "http://192.168.0.17:3000/users/",
       distanceFilter:0,
       stationaryRadius:0,
       locationTimeout:1
