@@ -1,19 +1,12 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
-<widget id="com.ionicframework.prototypes160659" version="0.0.1" xmlns="http://www.w3.org/ns/widgets" xmlns:cdv="http://cordova.apache.org/ns/1.0">
-  <name>prototypes</name>
+<widget id="com.example.ExampleYo" version="0.0.1" xmlns="http://www.w3.org/ns/widgets" xmlns:cdv="http://cordova.apache.org/ns/1.0">
+  <name>ExampleYo</name>
   <description>
-        An Ionic Framework and Cordova project.
+        A sample Apache Cordova application that responds to the deviceready event.
     </description>
-  <author email="hi@ionicframework" href="http://ionicframework.com/">
-      Ionic Framework Team
+  <author email="dev@cordova.apache.org" href="http://cordova.io">
+        Apache Cordova Team
     </author>
   <content src="index.html"/>
   <access origin="*"/>
-  <preference name="webviewbounce" value="false"/>
-  <preference name="UIWebViewBounce" value="false"/>
-  <preference name="DisallowOverscroll" value="true"/>
-  <preference name="BackupWebStorage" value="none"/>
-  <feature name="StatusBar">
-    <param name="ios-package" value="CDVStatusBar" onload="true"/>
-  </feature>
 </widget>
