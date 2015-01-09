@@ -152,6 +152,12 @@ module.exports = function (grunt) {
       app: {
         src: ['<%= yeoman.app %>/index.html'],
         ignorePath:  /\.\.\//
+      },
+      dev: {
+        src: ['<%= yeoman.app %>/index.html'],
+        ignorePath:  /\.\.\//,
+        devDependencies: true,
+        exclude: [ /ngCordova/]
       }
     },
 
@@ -468,7 +474,7 @@ module.exports = function (grunt) {
     }
 
     grunt.config('concurrent.ionic.tasks', ['ionic:serve', 'watch']);
-    grunt.task.run(['init', 'concurrent:ionic']);
+    grunt.task.run(['initDev', 'concurrent:ionic']);
   });
   grunt.registerTask('emulate', function() {
     grunt.config('concurrent.ionic.tasks', ['ionic:emulate:' + this.args.join(), 'watch']);
@@ -485,7 +491,17 @@ module.exports = function (grunt) {
   grunt.registerTask('init', [
     'clean',
     'ngconstant:development',
-    'wiredep',
+    'wiredep:app',
+    'concurrent:server',
+    'autoprefixer',
+    'newer:copy:app',
+    'newer:copy:tmp'
+  ]);
+
+   grunt.registerTask('initDev', [
+    'clean',
+    'ngconstant:development',
+    'wiredep:dev',
     'concurrent:server',
     'autoprefixer',
     'newer:copy:app',
@@ -493,10 +509,12 @@ module.exports = function (grunt) {
   ]);
 
 
+
+
   grunt.registerTask('compress', [
     'clean',
     'ngconstant:production',
-    'wiredep',
+    'wiredep:app',
     'useminPrepare',
     'concurrent:dist',
     'autoprefixer',
