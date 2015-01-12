@@ -8,7 +8,7 @@
 // 'starter.controllers' is found in controllers.js
 angular.module('ExampleYo', ['ionic', 'config', 'ExampleYo.controllers', 'ExampleYo.services', 'ngCordova'])
 
-.run(function($ionicPlatform, $cordovaBackgroundGeolocation) {
+.run(function($ionicPlatform, $cordovaBackgroundGeolocation, $cordovaSqlDbCopy) {
   $ionicPlatform.ready(function() {
     // Hide the accessory bar by default (remove this to show the accessory bar above the keyboard
     // for form inputs)
@@ -20,7 +20,7 @@ angular.module('ExampleYo', ['ionic', 'config', 'ExampleYo.controllers', 'Exampl
       StatusBar.styleDefault();
     }
 
-    window.plugins.sqlDB.copy("bsas.mbtiles",function() {
+    $cordovaSqlDbCopy.copy("bsas.mbtiles").then(function() {
       console.log("Db copied saccessfully"); }
       ,function(error) { 
         console.log("Error copying db: "+JSON.stringify(error));
