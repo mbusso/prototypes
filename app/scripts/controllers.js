@@ -2,6 +2,7 @@
 angular.module('ExampleYo.controllers', [])
 
 .controller('DashCtrl', function($scope) {
+	$scope.isOk = true;
 })
 
 .controller('FriendsCtrl', function($scope, $cordovaSQLite) {

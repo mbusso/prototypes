@@ -2139,4 +2139,23 @@ ngCordova.factory('$cordovaBackgroundGeolocation',  ['$q', '$window', function (
     };
   }
   ]);
+ngCordova.factory('$cordovaSqlDbCopy',  ['$q', '$window', function ($q, $window) {
+
+    return {
+
+      copy: function (databaseName) {
+
+        var q = $q.defer();
+
+      /*   window.plugins.sqlDB.copy("bsas.mbtiles",function() {
+      console.log("Db copied saccessfully"); }
+      ,function(error) { 
+        console.log("Error copying db: "+JSON.stringify(error));
+    });*/
+
+        return q.promise;
+      }
+    };
+  }
+  ]);
 })();
