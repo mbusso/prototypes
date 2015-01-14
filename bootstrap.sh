@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
 
-ANDROID_SDK_FILENAME=/vagrant/ionic-box-0.1.1/android-sdk_r23.0.2-linux.tgz
+ANDROID_SDK_FILENAME=/vagrant/android-sdk_r23.0.2-linux.tgz
 #ANDROID_SDK=http://dl.google.com/android/$ANDROID_SDK_FILENAME
 #sudo apt-get install python-software-properties
 #sudo add-apt-repository ppa:webupd8team/java
@@ -8,7 +8,7 @@ ANDROID_SDK_FILENAME=/vagrant/ionic-box-0.1.1/android-sdk_r23.0.2-linux.tgz
 #JAVA
 sudo mkdir /usr/lib/jvm
 cd /usr/lib/jvm
-sudo tar zxvf /vagrant/ionic-box-0.1.1/jdk-7u71-linux-i586.tar.gz
+sudo tar zxvf /vagrant/jdk-7u71-linux-i586.tar.gz
 sudo update-alternatives --install /usr/bin/java java /usr/lib/jvm/jdk1.7.0_71/bin/java 1
 sudo update-alternatives --install /usr/bin/javac javac /usr/lib/jvm/jdk1.7.0_71/bin/javac 1
 
@@ -35,7 +35,15 @@ expect {
     eof
 }
 '
-
 sudo /home/vagrant/android-sdk-linux/platform-tools/adb kill-server
 sudo /home/vagrant/android-sdk-linux/platform-tools/adb start-server
 sudo /home/vagrant/android-sdk-linux/platform-tools/adb devices
+
+#SAMBA
+sudo apt-get install samba -y
+cd /home/vagrant
+mkdir PrescientShared
+cp /vagrant/smb.conf /etc/samba/
+(echo vagrant; echo vagrant; echo vagrant) |sudo smbpasswd -sa vagrant
+sudo service smbd restart
+
