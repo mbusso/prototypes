@@ -13,7 +13,7 @@ sudo update-alternatives --install /usr/bin/java java /usr/lib/jvm/jdk1.7.0_71/b
 sudo update-alternatives --install /usr/bin/javac javac /usr/lib/jvm/jdk1.7.0_71/bin/javac 1
 
 curl -sL https://deb.nodesource.com/setup | sudo bash -
-sudo DEBIAN_FRONTEND=noninteractive apt-get install -y nodejs git expect #ant
+sudo DEBIAN_FRONTEND=noninteractive apt-get install -y nodejs git expect libfontconfig #ant
 # So ubuntu doesn't freak out about nodejs path, which is just silly
 ln -s /usr/bin/nodejs /usr/bin/node
 
