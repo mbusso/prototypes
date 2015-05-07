@@ -1,0 +1,58 @@
+<div ng-include="'components/navbar/navbar.html'"></div>
+
+<div class="container">
+  <div class="row">
+    <div class="col-sm-12">
+      <h1>Create a Traveler</h1>      
+    </div>
+    <div class="col-sm-12">
+      <form class="form" name="form" ng-submit="save()" novalidate>
+
+        <div class="form-group">
+          <label>First name</label>
+
+          <input type="text" name="firstName" class="form-control" ng-model="traveler.firstName" required>
+        </div>
+
+        <div class="form-group">
+          <label>Middle name</label>
+
+          <input type="text" name="middleName" class="form-control" ng-model="traveler.middleName">
+        </div>
+
+        <div class="form-group">
+          <label>Last name</label>
+
+          <input type="text" name="lastName" class="form-control" ng-model="traveler.lastName" required>
+        </div>
+
+        <div class="form-group">
+          <label>Title</label>
+
+          <input type="text" name="title" class="form-control" ng-model="traveler.title" required>
+        </div>
+
+        <div class="form-group">
+          <label>Employee ID</label>
+
+          <input type="number" name="employeeId" class="form-control" ng-model="traveler.employeeId" required>
+        </div>
+
+        <div>
+          <button class="btn btn-inverse btn-lg" type="submit">
+            Submit
+          </button>
+          <a class="btn btn-default btn-lg" ui-sref="main">
+            Cancel
+          </a>
+        </div>
+
+        <p class="help-block">
+              {{ feedback }}
+        </p>
+
+      </form>
+    </div>
+  </div>
+  <hr>
+</div>
