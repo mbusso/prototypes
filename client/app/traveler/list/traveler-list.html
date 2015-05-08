@@ -1,0 +1,38 @@
+<div ng-include="'components/navbar/navbar.html'"></div>
+
+<div class="container">
+ <table st-table="rowCollection" class="table table-striped">
+    <thead>
+    <tr>
+      <th st-sort="firstName">first name</th>
+      <th st-sort="lastName">last name</th>
+      <th st-sort="birthDate">birth date</th>
+      <th st-sort="balance">balance</th>
+      <th>email</th>
+    </tr>
+    <tr>
+      <th>
+        <input st-search placeholder="Enter field to filter" class="input-sm form-control" type="search"/>
+      </th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr ng-repeat="row in rowCollection">
+      <td>{{row.firstName | uppercase}}</td>
+      <td>{{row.lastName}}</td>
+      <td>{{row.birthDate | date}}</td>
+      <td>{{row.balance | currency}}</td>
+      <td><a ng-href="mailto:{{row.email}}">email</a></td>
+    </tr>
+    </tbody>
+    <tfoot>
+      <tr>
+        <td colspan="5" class="text-center">
+          <div st-pagination="" st-items-by-page="itemsByPage" st-displayed-pages="7" st-template="/app/traveler/list/pagination.custom.html"></div>
+        </td>
+      </tr>
+    </tfoot>
+  </table>
+<!-- 
+  <pagination boundary-links="true" total-items="totalItems" ng-model="currentPage" class="pagination-sm" previous-text="&lsaquo;" next-text="&rsaquo;" first-text="&laquo;" last-text="&raquo;"></pagination> -->
+</div>
