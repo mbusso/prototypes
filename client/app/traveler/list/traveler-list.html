@@ -6,9 +6,10 @@
     <tr>
       <th st-sort="firstName">first name</th>
       <th st-sort="lastName">last name</th>
-      <th st-sort="birthDate">birth date</th>
-      <th st-sort="balance">balance</th>
-      <th>email</th>
+      <th st-sort="title">title</th>
+      <th st-sort="employeeId">employee Id</th>
+      <th></th>
+      <th></th>
     </tr>
     <tr>
       <th>
@@ -20,9 +21,10 @@
     <tr ng-repeat="row in rowCollection">
       <td>{{row.firstName | uppercase}}</td>
       <td>{{row.lastName}}</td>
-      <td>{{row.birthDate | date}}</td>
-      <td>{{row.balance | currency}}</td>
-      <td><a ng-href="mailto:{{row.email}}">email</a></td>
+      <td>{{row.title}}</td>
+      <td>{{row.employeeId}}</td>
+      <td><a href>Edit</a></td>
+      <td><a href>Delete</a></td>
     </tr>
     </tbody>
     <tfoot>
@@ -33,6 +35,5 @@
       </tr>
     </tfoot>
   </table>
-<!-- 
-  <pagination boundary-links="true" total-items="totalItems" ng-model="currentPage" class="pagination-sm" previous-text="&lsaquo;" next-text="&rsaquo;" first-text="&laquo;" last-text="&raquo;"></pagination> -->
+
 </div>
