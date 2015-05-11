@@ -1,16 +1,15 @@
 'use strict';
 
 angular.module('contentBuilderApp')
-.controller('TravelerListCtrl', function ($scope, Traveler) {
+.controller('TravelerListCtrl', function ($scope, travelers) {
+
+	$scope.itemsByPage=15;
+	$scope.rowCollection = travelers;
+
+
 	// var
 	// nameList = ['Pierre', 'Pol', 'Jacques', 'Robert', 'Elisa'],
 	// familyName = ['Dupont', 'Germain', 'Delcourt', 'bjip', 'Menez'];
-
-	Traveler.query().$promise.then(function(travelers) {
-      $scope.rowCollection = travelers;
-    }, function(error){
-      $scope.feedback = error;
-    });
 
 	// function createRandomItem() {
 	// 	var
