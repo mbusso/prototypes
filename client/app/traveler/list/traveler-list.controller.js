@@ -1,11 +1,16 @@
 'use strict';
 
 angular.module('contentBuilderApp')
-.controller('TravelerListCtrl', function ($scope, travelers) {
+.controller('TravelerListCtrl', function ($scope, $http, travelers) {
 
 	$scope.itemsByPage=15;
 	$scope.rowCollection = travelers;
 
+	$scope.searchTravelers = function(config) {
+		return $http.get('/api/travelers/', config);
+	};
+
+	
 
 	// var
 	// nameList = ['Pierre', 'Pol', 'Jacques', 'Robert', 'Elisa'],
@@ -34,4 +39,4 @@ angular.module('contentBuilderApp')
 	// for (var j = 0; j < 200; j++) {
 	// 	$scope.rowCollection.push(createRandomItem());
 	// }
-});
+})

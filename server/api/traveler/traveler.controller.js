@@ -22,6 +22,7 @@ exports.create = function (req, res, next) {
 };
 
 exports.index = function(req, res) {
+  console.log(req.query);
   Traveler.find({}, function (err, users) {
     if(err) return res.send(500, err);
     res.json(200, users);
