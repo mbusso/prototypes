@@ -23,28 +23,23 @@ exports.create = function (req, res, next) {
 };
 
 exports.index = function(req, res) {
-  var predicate = {};  
-  if(req.query.orderBy) {
-    var order = null;
-    if(req.query.reverse == "true") {
-      order = -1;
-    }
-    else {
-      order = 1;
-    }
-    var property = req.query.orderBy;
-    
-  }else {    
-    property = "lastName";
-    order = 1;
-  }
+  var order = req.query.reverse == "true"? -1: 1; 
   var predicateJson = {};
-  predicateJson[property] = order;
-  console.log(predicateJson);
+  predicateJson[req.query.orderBy] = order;
+  var filterPredicate = {};
 
-  var filterPredicate = req.query.filter ? { $or: [ { lastName: req.query.filter }, { title: req.query.filter } ] } : {}
+  var filters = [];
+  var columns = req.query.columns;
+
+  if(req.query.filter) {
+    for(var i=0; i<columns.length; i++) {
+      var predicate = {};
+      predicate[columns[i]] = req.query.filter;
+      filters.push(predicate);
+    }    
+    filterPredicate["$or"] = filters;
+  }
  
-
     Traveler.count({}, function(err, count) {
       if(err) return res.send(500, err);
       if(count > 0) {
