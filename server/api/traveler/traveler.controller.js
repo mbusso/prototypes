@@ -22,8 +22,25 @@ exports.create = function (req, res, next) {
 };
 
 exports.index = function(req, res) {
-  console.log(req.query);
-  Traveler.find({}, function (err, users) {
+  var predicate = {};  
+  if(req.query.orderBy) {
+    var order = null;
+    if(req.query.reverse == "true") {
+      order = -1;
+    }
+    else {
+      order = 1;
+    }
+    var property = req.query.orderBy;
+    
+  }else {    
+    property = "lastName";
+    order = 1;
+  }
+  var predicateJson = {};
+  predicateJson[property] = order;
+  console.log(predicateJson);
+  Traveler.find({}).sort(predicateJson).exec(function (err, users) {
     if(err) return res.send(500, err);
     res.json(200, users);
   });
