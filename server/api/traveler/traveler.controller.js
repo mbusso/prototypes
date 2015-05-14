@@ -40,9 +40,19 @@ exports.index = function(req, res) {
   var predicateJson = {};
   predicateJson[property] = order;
   console.log(predicateJson);
+
+  if(req.query.filter) {
+    Traveler.find( { $or: [ { lastName: req.query.filter }, { title: req.query.filter } ] }).sort(predicateJson).exec(function (err, users) {
+    if(err) return res.send(500, err);
+    res.json(200, users);
+  });
+  }
+  else {
+  //query.or([{ color: 'red' }, { status: 'emergency' }])
   Traveler.find({}).sort(predicateJson).exec(function (err, users) {
     if(err) return res.send(500, err);
     res.json(200, users);
   });
+  }
 };
 
