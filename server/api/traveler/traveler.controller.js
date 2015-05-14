@@ -4,6 +4,7 @@ var Traveler = require('./traveler.model');
 var passport = require('passport');
 var config = require('../../config/environment');
 var jwt = require('jsonwebtoken');
+require('../mongoose-paginate')
 
 var validationError = function(res, err) {
   return res.json(422, err);
@@ -42,13 +43,12 @@ exports.index = function(req, res) {
   console.log(predicateJson);
 
   if(req.query.filter) {
-    Traveler.find( { $or: [ { lastName: req.query.filter }, { title: req.query.filter } ] }).sort(predicateJson).exec(function (err, users) {
+      Traveler.find( { $or: [ { lastName: req.query.filter }, { title: req.query.filter } ] }).sort(predicateJson).paginate({ limit: 10, offset: 0}).exec(function (err, users) {
     if(err) return res.send(500, err);
     res.json(200, users);
   });
   }
   else {
-  //query.or([{ color: 'red' }, { status: 'emergency' }])
   Traveler.find({}).sort(predicateJson).exec(function (err, users) {
     if(err) return res.send(500, err);
     res.json(200, users);
