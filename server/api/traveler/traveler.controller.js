@@ -4,7 +4,7 @@ var Traveler = require('./traveler.model');
 var passport = require('passport');
 var config = require('../../config/environment');
 var jwt = require('jsonwebtoken');
-require('../mongoose-paginate')
+
 
 var validationError = function(res, err) {
   return res.json(422, err);
@@ -42,17 +42,22 @@ exports.index = function(req, res) {
   predicateJson[property] = order;
   console.log(predicateJson);
 
-  if(req.query.filter) {
-      Traveler.find( { $or: [ { lastName: req.query.filter }, { title: req.query.filter } ] }).sort(predicateJson).paginate({ limit: 10, offset: 0}).exec(function (err, users) {
-    if(err) return res.send(500, err);
-    res.json(200, users);
-  });
-  }
-  else {
-  Traveler.find({}).sort(predicateJson).exec(function (err, users) {
-    if(err) return res.send(500, err);
-    res.json(200, users);
-  });
-  }
+  var filterPredicate = req.query.filter ? { $or: [ { lastName: req.query.filter }, { title: req.query.filter } ] } : {}
+ 
+
+    Traveler.count({}, function(err, count) {
+      if(err) return res.send(500, err);
+      if(count > 0) {
+        Traveler.find(filterPredicate).sort(predicateJson).skip(req.query.offset).limit(req.query.pageSize).exec(function (err, users) {
+          if(err) return res.send(500, err);
+          if(users)
+          res.json(200, [{collection: users, length: count}]);
+        else {
+          res.json(200, [{collection: [], length: 0}]);
+        }
+        });      
+      }     
+    })
+
 };
 
