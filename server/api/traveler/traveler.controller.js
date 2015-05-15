@@ -23,37 +23,9 @@ exports.create = function (req, res, next) {
 };
 
 exports.index = function(req, res) {
-  var order = req.query.reverse == "true"? -1: 1; 
-  var predicateJson = {};
-  predicateJson[req.query.orderBy] = order;
-  var filterPredicate = {};
-
-  var filters = [];
-  var columns = req.query.columns;
-
-  if(req.query.filter) {
-    for(var i=0; i<columns.length; i++) {
-      var predicate = {};
-      predicate[columns[i]] = new RegExp(req.query.filter, "i");
-      filters.push(predicate);
-    }    
-    filterPredicate["$or"] = filters;
-  }
- 
-    console.log(filterPredicate);
-    Traveler.count({}, function(err, count) {
-      if(err) return res.send(500, err);
-      if(count > 0) {
-        Traveler.find(filterPredicate).sort(predicateJson).skip(req.query.offset).limit(req.query.pageSize).exec(function (err, users) {
-          if(err) return res.send(500, err);
-          if(users)
-          res.json(200, [{collection: users, length: count}]);
-        else {
-          res.json(200, [{collection: [], length: 0}]);
-        }
-        });      
-      }     
-    })
-
+  Traveler.findWithPagination(req.query, function(err, users, length){
+    if(err) return res.send(500, err);
+    res.json(200, [{collection: users, length: length}]);
+  });
 };
 
