@@ -9,7 +9,7 @@ var TravelerSchema = new Schema({
   middleName: String,
   lastName: String,
   title: String,
-  employeeId: Number
+  employeeId: String
 });
 
 module.exports = mongoose.model('Traveler', TravelerSchema);

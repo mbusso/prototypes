@@ -34,12 +34,13 @@ exports.index = function(req, res) {
   if(req.query.filter) {
     for(var i=0; i<columns.length; i++) {
       var predicate = {};
-      predicate[columns[i]] = req.query.filter;
+      predicate[columns[i]] = new RegExp(req.query.filter, "i");
       filters.push(predicate);
     }    
     filterPredicate["$or"] = filters;
   }
  
+    console.log(filterPredicate);
     Traveler.count({}, function(err, count) {
       if(err) return res.send(500, err);
       if(count > 0) {
