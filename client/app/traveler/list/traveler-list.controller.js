@@ -1,7 +1,7 @@
 'use strict';
 
 angular.module('contentBuilderApp')
-.controller('TravelerListCtrl', function ($scope, $http, travelers) {
+.controller('TravelerListCtrl', function ($scope, $http, Traveler, travelers) {
 
 	$scope.itemsByPage=15;
 	$scope.rowCollection = travelers;
@@ -9,6 +9,16 @@ angular.module('contentBuilderApp')
 	$scope.searchTravelers = function(config) {
 		return $http.get('/api/travelers/', config);
 	};
+
+	$scope.edit = function(traveler) {
+
+	}
+
+	$scope.delete = function(traveler, index) {	
+		Traveler.remove( {id: traveler._id}, function(travelerDeleted){
+			$scope.rowCollection.splice(index, 1);
+		});
+	}
 
 	
 

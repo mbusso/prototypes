@@ -10,9 +10,7 @@ var validationError = function(res, err) {
   return res.json(422, err);
 };
 
-/**
- * Creates a new user
- */
+
 exports.create = function (req, res, next) {
   var newTraveler = new Traveler(req.body);
   newTraveler.save(function(err, user) {
@@ -26,6 +24,13 @@ exports.index = function(req, res) {
   Traveler.findWithPagination(req.query, function(err, users, length){
     if(err) return res.send(500, err);
     res.json(200, [{collection: users, length: length}]);
+  });
+};
+
+exports.destroy = function(req, res) {
+  Traveler.findByIdAndRemove(req.query.id, function(err, traveler) {
+    if(err) return res.send(500, err);
+    return res.send(204);
   });
 };
 

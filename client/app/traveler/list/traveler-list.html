@@ -23,8 +23,8 @@
       <td>{{row.lastName}}</td>
       <td>{{row.title}}</td>
       <td>{{row.employeeId}}</td>
-      <td><a href>Edit</a></td>
-      <td><a href>Delete</a></td>
+      <td><a ng-click="edit(row)">Edit</a></td>
+      <td><a ng-click="delete(row, $index)">Delete</a></td>
     </tr>
     </tbody>
     <tfoot>
