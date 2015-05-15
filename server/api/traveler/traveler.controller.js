@@ -28,9 +28,23 @@ exports.index = function(req, res) {
 };
 
 exports.destroy = function(req, res) {
-  Traveler.findByIdAndRemove(req.query.id, function(err, traveler) {
+  Traveler.findByIdAndRemove(req.param.id, function(err, traveler) {
     if(err) return res.send(500, err);
     return res.send(204);
   });
+};
+
+exports.show = function (req, res, next) {
+  var travelerId = req.params.id;
+  Traveler.findById(travelerId, function (err, traveler) {
+    if (err) return next(err);
+    if (!traveler) return res.send(401);
+    res.json(traveler);
+  });
+};
+
+exports.update = function(req, res, next) {
+  var travelerId = req.params.id;
+ 
 };
 

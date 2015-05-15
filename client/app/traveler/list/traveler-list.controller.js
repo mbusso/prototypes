@@ -10,10 +10,6 @@ angular.module('contentBuilderApp')
 		return $http.get('/api/travelers/', config);
 	};
 
-	$scope.edit = function(traveler) {
-
-	}
-
 	$scope.delete = function(traveler, index) {	
 		Traveler.remove( {id: traveler._id}, function(travelerDeleted){
 			$scope.rowCollection.splice(index, 1);
