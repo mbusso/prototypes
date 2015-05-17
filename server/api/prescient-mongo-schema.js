@@ -7,21 +7,30 @@ function PrescientTravelerSchema() {
 
   this.statics.findWithPagination = function(criteria, callback) {
     var model = this;
-    var sortPredicate = createSortPredicate(criteria);
-    var filterPredicate = createFilterPredicate(criteria);
-    model.count({}, function(err, count) {
+    var countPredicate = createCountPredicate(criteria);
+    model.count(countPredicate, function(err, count) {
       if(err) callback(err, null, count);
       if(count > 0) {
-        model.find(filterPredicate).sort(sortPredicate).skip(criteria.offset).limit(criteria.pageSize).exec(function (err, users) {
-          if(err) callback(err, users, 0);
-          if(users)
-            callback(err, users, count);
-          else {
-            callback(err, [], 0);
-          }
-        });      
+        find(model, criteria, count, callback);
       }     
     });
+  };
+
+  function find(model, criteria, count, callback) {
+    var sortPredicate = createSortPredicate(criteria);
+    var filterPredicate = createFilterPredicate(criteria);
+    model.find(filterPredicate).sort(sortPredicate).skip(criteria.offset).limit(criteria.pageSize).exec(function (err, users) {
+      if(err) callback(err, users, 0);
+      if(users)
+        callback(err, users, count);
+      else {
+        callback(err, [], 0);
+      }
+    }); 
+  };
+
+  function createCountPredicate(criteria) {
+    return criteria.filter ? createFilterPredicate(criteria) : {};
   };
 
   function createSortPredicate(criteria) {

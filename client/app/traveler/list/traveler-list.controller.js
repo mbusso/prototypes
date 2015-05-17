@@ -3,7 +3,7 @@
 angular.module('contentBuilderApp')
 .controller('TravelerListCtrl', function ($scope, Traveler) {
 
-	$scope.itemsByPage=15;
+	$scope.itemsByPage=3;
 
 	$scope.searchTravelers = function(criteria) {
 		return Traveler.query(criteria).$promise;
