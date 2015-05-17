@@ -21,11 +21,6 @@ angular.module('contentBuilderApp')
   .state('traveler-list', {
     url: '/traveler/list',
     templateUrl: 'app/traveler/list/traveler-list.html',
-    controller: 'TravelerListCtrl',
-    resolve: {
-      travelers: function(Traveler){
-        return Traveler.query().$promise;
-      }
-    }
+    controller: 'TravelerListCtrl'
   });
 });

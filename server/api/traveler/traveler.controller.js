@@ -28,8 +28,9 @@ exports.index = function(req, res) {
 };
 
 exports.destroy = function(req, res) {
-  Traveler.findByIdAndRemove(req.param.id, function(err, traveler) {
+  Traveler.findByIdAndRemove(req.params.id, function(err, traveler) {
     if(err) return res.send(500, err);
+    if(!traveler) return res.send(500, "traveler doesnt exist");
     return res.send(204);
   });
 };
