@@ -45,7 +45,12 @@ exports.show = function (req, res, next) {
 };
 
 exports.update = function(req, res, next) {
-  var travelerId = req.params.id;
+  var traveler = req.body;
+  Traveler.findByIdAndUpdate(traveler._id, traveler , function(err, traveler) {
+    if (err) return validationError(res, err);
+    if(!traveler) return res.send(500, "traveler doesnt exist");
+    return res.send(200);
+  });
  
 };
 

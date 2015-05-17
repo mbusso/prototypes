@@ -2,7 +2,7 @@
 
 angular.module('contentBuilderApp')
 .factory('Traveler', function ($resource) {
-	return $resource('/api/travelers/:id', { id: '@_id' } , {
+	return $resource('/api/travelers/:id', null , {
 		update: {
 			method: 'PUT'        
 		}
